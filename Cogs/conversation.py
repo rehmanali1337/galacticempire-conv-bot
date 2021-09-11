@@ -31,9 +31,12 @@ class Hire(commands.Cog):
         else:
             new_ticket_number = int(category.text_channels[-1].name.replace(
                 'ticket-', '').strip()) + 1
+        additional_role = reaction.member.guild.get_role(
+            config.TICKET_CHANNEL_VIEW_ROLE_ID)
         overwrites = {
             reaction.member.guild.default_role: discord.PermissionOverwrite(read_messages=False),
             reaction.member: discord.PermissionOverwrite(read_messages=True, send_messages=True),
+            additional_role: discord.PermissionOverwrite(read_messages=True, send_messages=True),
             self.bot.user: discord.PermissionOverwrite(
                 read_messages=True, send_messages=True)
         }
